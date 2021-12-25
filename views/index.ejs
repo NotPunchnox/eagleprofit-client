@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<script>
+  const key = localStorage.getItem('key')
+
+  if (!key) window.location.assign('/add')
+
+  if (key !== null) {
+    const request = new Request('https://eagleprofit-api.herokuapp.com/api/info', {
+      method: 'GET',
+      headers: new Headers({
+        'authorization': key
+      })
+    })
+    fetch(request).then(async r => {
+      let body = await r.json()
+      console.log(body)
+      if (r.status === 400) return localStorage.removeItem('key'), window.location.assign('/add')
+      if (r.status === 401) return localStorage.removeItem('key'), window.location.assign('/add')
+      if (r.status === 200) return document.getElementById('sold').innerText =
+        `💰 Solde: ${body.message.count || 0}€`, document.getElementById('sold1').innerText =
+        `💰 Solde: ${body.message.count || 0}€`
+    })
+  }
+
+  function send() {
+
+
+    const body = JSON.stringify({
+      test: "cc",
+      "__number": String(document.getElementById('destinataire').value),
+      "__message": String(document.getElementById('name').value)
+    })
+
+    console.log(body)
+
+    fetch('https://eagleprofit-api.herokuapp.com/api/send', {
+      method: 'POST',
+      body: body,
+      headers: {
+        'content-type': 'application/json',
+        'authorization': key
+      }
+    }).then(async r => {
+      let body = await r.json()
+      console.log(body)
+      if (r.status === 400) return localStorage.removeItem('key'), window.location.assign('/add')
+      if (r.status === 401) return localStorage.removeItem('key'), window.location.assign('/add')
+      if (r.status === 403) return document.getElementById('send_result').innerText =
+        "Veuillez definir le(s) déstinataire(s) ou le message ❌"
+      if (r.status === 200) return document.getElementById('send_result').innerText = "Envoyé avec succès ✅"
+    })
+  }
+</script>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Professor | Standard</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+  <center>
+    <img src="images/logo.png" width="300">
+  </center>
+  <div class="container">
+    <div class="wrapper">
+      <ul class="steps">
+
+        <li class="is-active">Étape 1</li>
+        <li>Étape 2</li>
+        <li>Étape 3</li>
+      </ul>
+      <form class="form-wrapper">
+        <fieldset class="section is-active">
+          <p id="sold"></p> <a href="add.html">Ajouter du solde</a>
+          <h3>📞 Numéro :(+33) </h3>
+          <input type="text" name="destinataire" id="destinataire" placeholder="Destinataire">
+          <h3>📝Texte :</h3>
+          <input type="text" name="name" id="name" placeholder="Texte SMS">
+          <div class="button">Suivant</div>
+        </fieldset>
+        <fieldset class="section">
+          <p id="sold1"></p>
+          <h3>☎️ Numéro d'envoi disponible</h3>
+          <div class="row cf">
+            <div class="four col">
+              <input type="radio" name="r1" id="r1" checked>
+              <label for="r1">
+                <h4>🟢 38 977 - Disponible </h4>
+              </label>
+            </div>
+            <div class="four col">
+              <input type="radio" name="r1" id="r2"><label for="r2">
+                <h4>🔴 07 12 21 24 48 - Indisponible</h4>
+              </label>
+            </div>
+          </div>
+          <div class="button" onclick="send()">Suivant</div>
+        </fieldset>
+        <fieldset class="section">
+          <h3 id="send_result"></h3>
+          <p>Votre message vien d'être transmis.</p>
+          <a href="/" class="button">Retour</a>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+
+
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+  <script src="js/script.js"></script>
+
+</body>
+
+</html>
