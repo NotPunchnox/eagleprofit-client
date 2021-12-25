@@ -4,7 +4,6 @@ const app = require('express')(),
 
 
 require('ejs')
-require('dotenv').config()
 
 app.use(bp.json())
 app.use(bp.urlencoded({extended: false}))
