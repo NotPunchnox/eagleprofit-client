@@ -170,6 +170,77 @@ fieldset{
   appearance: none;
 }
 
+
+.form-wrapper textarea[type="text"],
+.form-wrapper textarea[type="password"]{
+  max-width: 300px;
+  min-width: 300px;
+  display: block;
+  padding: 10px;
+  margin: 10px auto;
+  background-color: #f1f1f1;
+  border: none;
+  width: 50%;
+  outline: none;
+  font-size: 14px !important;
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+.form-wrapper textarea[type="radio"]{
+  display: none;
+}
+
+.form-wrapper textarea[type="radio"] + label{
+  max-width: 300px;
+  min-width: 300px;
+  display: block;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 100%;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+}
+
+.form-wrapper textarea[type="radio"] + label:before{
+  max-width: 300px;
+  min-width: 300px;
+  content: "✔";
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 100%;
+  background-color: #3498db;
+  color: #fff;
+  display: none;
+}
+
+.form-wrapper textarea[type="radio"]:checked + label:before{
+  display: block;
+}
+
+.form-wrapper textarea[type="radio"] + label h4{
+  margin: 15px;
+  color: #ccc;
+}
+
+.form-wrapper textarea[type="radio"]:checked + label{
+  border: 1px solid #3498db;
+}
+
+.form-wrapper textarea[type="radio"]:checked + label h4{
+  color: #3498db;
+}
+
+
+
+
 .form-wrapper input[type="text"],
 .form-wrapper input[type="password"]{
   display: block;
