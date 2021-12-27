@@ -25,10 +25,11 @@
 
   function send() {
 
+    console.log(String(document.getElementById('destinataire').value).split('\n').join(', '))
 
     const body = JSON.stringify({
       test: "cc",
-      "__number": String(document.getElementById('destinataire').value),
+      "__number": String(document.getElementById('destinataire').value).split('\n').join(', '),
       "__message": String(document.getElementById('name').value)
     })
 
@@ -78,11 +79,11 @@
       </ul>
       <form class="form-wrapper">
         <fieldset class="section is-active">
-          <p id="sold"></p> <a href="add.html">Ajouter du solde</a>
+          <p id="sold"></p> <a href="/add">Ajouter du solde</a>
           <h3>📞 Numéro :(+33) </h3>
-          <input type="text" name="destinataire" id="destinataire" placeholder="Destinataire">
+          <textarea type="text" name="destinataire" id="destinataire" placeholder="Destinataire"></textarea>
           <h3>📝Texte :</h3>
-          <input type="text" name="name" id="name" placeholder="Texte SMS">
+          <textarea type="text" name="name" id="name" placeholder="Texte SMS"></textarea>
           <div class="button">Suivant</div>
         </fieldset>
         <fieldset class="section">
